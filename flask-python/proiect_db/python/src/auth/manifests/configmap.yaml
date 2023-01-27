@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proiect-db-auth-configmap
+data:
+  MYSQL_HOST: host.minikube.internal
+  MYSQL_USER: proiect_db_auth_user
+  MYSQL_DB: proiect_db_auth
+  MYSQL_PORT: "3306"

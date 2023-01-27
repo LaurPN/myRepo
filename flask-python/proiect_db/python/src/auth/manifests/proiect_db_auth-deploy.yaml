@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proiect-db-auth
+  labels:
+    app: proiect-db-auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: proiect-db-auth
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: proiect-db-auth
+    spec:
+      containers:
+        - name: proiect-db-auth
+          image: laurentiu12/proiect_db_auth
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: proiect-db-auth-configmap
+            - secretRef:
+                name: proiect-db-auth-secret

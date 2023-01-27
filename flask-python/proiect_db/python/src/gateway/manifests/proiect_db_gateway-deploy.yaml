@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proiect-db-gateway
+  labels:
+    app: proiect-db-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: proiect-db-gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: proiect-db-gateway
+    spec:
+      containers:
+        - name: proiect-db-gateway
+          image: laurentiu12/proiect_db_gateway
+          envFrom:
+            - configMapRef:
+                name: proiect-db-gateway-configmap
+            - secretRef:
+                name: proiect-db-gateway-secret
